@@ -1,0 +1,92 @@
+
+{% extends 'home/base.html' %}
+
+{% load static %}
+{% block craousal_wrapper %}
+
+{% include 'home/craousal.html' %}
+
+{% endblock craousal_wrapper %}
+
+
+
+{% block content %}
+
+<br>
+<br>
+
+  <!--Main layout-->
+  <main>
+
+
+    <div class="container">
+        <section class="text-center mb-4">
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+            {% for product in product_list %}
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-8">
+    
+                <!--Card-->
+                <div class="card">
+    
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <img src="{{product.image.url}}" class="card-img-top"
+                      alt="">
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                  <!--Card image-->
+    
+                  <!--Card content-->
+                  <div class="card-body text-center">
+                    <!--Category & Title-->
+                        {% if product.availabily == 'S' %}
+                            <span class="badge badge-pill badge-default">In Stock</span>
+                        {% else %}
+                            <span class="badge badge-pill badge-danger">Out of Stock</span>
+                        {% endif %}
+                    <h5>
+                        
+                      <strong>
+                    
+                        <a href="" class="dark-grey-text">{{product.name}}
+                          
+                        </a>
+                      </strong>
+                    </h5>
+    
+                    <h4 class="font-weight-bold blue-text">
+                      <strong><i class="fas fa-rupee-sign"></i>&nbsp;{{product.discount_price}}</strong>
+                     
+                     
+                    </h4>
+            
+                  </div>
+                  <!--Card content-->
+    
+                </div>
+                <!--Card-->
+    
+              </div>
+              <!--Grid column-->
+    
+            {% endfor %}
+    
+          
+    
+            </div>
+          
+    
+          </section>
+          <!--Section: Products v.3-->
+    
+
+    </div>
+  </main>
+
+{{product_list}}
+{% endblock  %}

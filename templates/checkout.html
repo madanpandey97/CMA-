@@ -21,15 +21,9 @@
           <!--Card-->
           <div class="card">
 
-
             <!--Card content-->
-            <form class="card-body">
-
-
-
-
-
-
+            <form method="POST"  class="card-body">
+            {% csrf_token %}
 
               <!--address-->
               <div class="md-form mb-5">
@@ -93,14 +87,14 @@
               <hr>
 
               <div class="custom-control custom-checkbox">
-                  <input {% if form.same_billing_address.value  %} checked {% endif %} type="checkbox"  name="same_billing_address "class="custom-control-input" id="same-address">
-                  {{ form.same_billing_address}}
+                  <input {% if form.same_shipping_address.value  %} checked {% endif %} type="checkbox"  name="same_billing_address "class="custom-control-input" id="same-address">
+{#                  {{ form.same_billing_address}}#}
                 <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
               </div>
               <div class="custom-control custom-checkbox">
-                  <input  {% if form.save_info.value %} checked {% endif %}  type="checkbox" name="save-info" class="custom-control-input" id="save-info">
+                  <input  {% if form.save_info.value %} checked {% endif %}  type="checkbox"  name="save-info" class="custom-control-input" id="save-info">
 
-                {{ form.save_info }}
+{#                {{ form.save_info }}#}
                 <label class="custom-control-label" for="save-info">Save this information for next time</label>
               </div>
 
@@ -109,7 +103,7 @@
               <div class="d-block my-3">
                   {% for value, name in form.fields.payment_option.choices %}
                 <div class="custom-control custom-radio">
-                  <input id="{{ name }}" name="paymentMethod" type="radio" class="custom-control-input"  required>
+                  <input id="{{ name }}" name="payment_option"  value="{{ value }}" type="radio" class="custom-control-input"  required>
                   <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
                 </div>
                   {% endfor %}

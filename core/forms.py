@@ -19,10 +19,10 @@ class CheckoutForm(forms.Form):
         'class':"custom-select d-block w-100"
     }))
     pincode = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder':'Pincode',
+        'placeholder':  'Pincode',
         'class': 'form-control'
     }))
-    same_billing_address = forms.BooleanField(required=False, widget=forms.CheckboxInput())
+    same_shipping_address = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     save_info = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     payment_option = forms.ChoiceField(widget=forms.RadioSelect,
                                        choices=PAYMENT_CHOICES)

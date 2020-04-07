@@ -21,6 +21,7 @@ payu_r= payu_url()
 payu_url = ''
 MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 
+
 class HomeView(ListView):
     model = Item
     paginate_by = 4
@@ -59,8 +60,8 @@ class CheckOutView(View):
                 order.billing_address = billing_address
                 order.save()
                 print("The form is valid")
-                print(form.data)
-
+                print(order.get_total())
+                print(order.id)
                 order = Order.objects.get(user=self.request.user, ordered=False)
                 #Request paytm to transfer the amount to your bank
 
@@ -83,24 +84,24 @@ class CheckOutView(View):
                     "ORDER_ID": "989898",
 
                     # unique id that belongs to your customer
-                    "CUST_ID": "897865",
+                    "CUST_ID": str('EOrder00'+str(order.id)),
 
                     # customer's mobile number
                     "MOBILE_NO": "8873220555",
 
                     # customer's email
-                    "EMAIL": "abc@gmail.com",
+                    "EMAIL": str(self.request.user.email),
 
                     # Amount in INR that is payble by customer
                     # this should be numeric with optionally having two decimal points
-                    "TXN_AMOUNT": "1",
+                    "TXN_AMOUNT": str(order.get_total()),
 
                     # on completion of transaction, we will send you the response on this URL
                     "CALLBACK_URL": "http://127.0.0.1:8000/handle_payment/",
                     }
 
 
-
+                print(paytmParams)
                 paytmParams["CHECKSUMHASH"] = checksum.generate_checksum(paytmParams, MERCHANT_KEY)
 
                 return render(self.request, 'paytm.html', {'parm_dict': paytmParams })

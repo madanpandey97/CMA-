@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
-    'django_countries'
+    'django_countries',
+    'payu'
 ]
 
 MIDDLEWARE = [
@@ -96,3 +97,12 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 LOGIN_REDIRECT_URL='/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+#payu
+PAYU_MERCHANT_KEY = "E9ZZB9Lq",
+
+PAYU_MERCHANT_SALT = "0hg3hgzG4V",
+
+# Change the PAYU_MODE to 'LIVE' for production.
+PAYU_MODE = "TEST"

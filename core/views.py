@@ -1,4 +1,5 @@
 from django.contrib import messages
+from payu.gateway import payu_url, get_hash
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, View
@@ -7,8 +8,18 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CheckoutForm
-# Create your views here.
+from uuid import uuid4
+from paytm import checksum
+from django.views.decorators.csrf import csrf_exempt
+import json
+import requests
+from django.shortcuts import reverse
+from django.http import HttpResponseRedirect, HttpResponse
 
+# Payu Url
+payu_r= payu_url()
+payu_url = ''
+MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 
 class HomeView(ListView):
     model = Item
@@ -49,9 +60,53 @@ class CheckOutView(View):
                 order.save()
                 print("The form is valid")
                 print(form.data)
-                return redirect('core:checkout')
-            messages.warning(self.request, "Checkout Failed.")
-            return redirect('core:checkout')
+
+                order = Order.objects.get(user=self.request.user, ordered=False)
+                #Request paytm to transfer the amount to your bank
+
+
+                paytmParams = {
+
+                    # Find your MID in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
+                    "MID": "WorldP64425807474247",
+
+                    # Find your WEBSITE in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
+                    "WEBSITE": "EStore",
+
+                    # Find your INDUSTRY_TYPE_ID in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
+                    "INDUSTRY_TYPE_ID": "Retail",
+
+                    # WEB for website and WAP for Mobile-websites or App
+                    "CHANNEL_ID": "WEB",
+
+                    # Enter your unique order id
+                    "ORDER_ID": "989898",
+
+                    # unique id that belongs to your customer
+                    "CUST_ID": "897865",
+
+                    # customer's mobile number
+                    "MOBILE_NO": "8873220555",
+
+                    # customer's email
+                    "EMAIL": "abc@gmail.com",
+
+                    # Amount in INR that is payble by customer
+                    # this should be numeric with optionally having two decimal points
+                    "TXN_AMOUNT": "1",
+
+                    # on completion of transaction, we will send you the response on this URL
+                    "CALLBACK_URL": "http://127.0.0.1:8000/handle_payment/",
+                    }
+
+
+
+                paytmParams["CHECKSUMHASH"] = checksum.generate_checksum(paytmParams, MERCHANT_KEY)
+
+                return render(self.request, 'paytm.html', {'parm_dict': paytmParams })
+
+            # messages.warning(self.request, "Checkout Failed.")
+            # return redirect('core:checkout')
         except ObjectDoesNotExist:
             messages.error(self.request, "You do not have any active order.")
             return redirect('core:order-summary')
@@ -60,6 +115,7 @@ class CheckOutView(View):
 class PaymentView(View):
 
     def get(self, *args, **kwargs):
+
         return render(self.request, 'payment.html')
 
 
@@ -177,3 +233,7 @@ def remove_single_product_from_cart (request, slug):
         return redirect("core:product", slug=slug)
         #add a message saying the user does not have an order
 
+
+@csrf_exempt
+def handle_request(request):
+    return HttpResponse('done')

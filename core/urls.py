@@ -5,7 +5,7 @@ from .views import (HomeView ,
                      remove_from_cart,
                     OrderSummaryView,
                     remove_single_product_from_cart,
-                    CheckOutView, PaymentView)
+                    CheckOutView, PaymentView, handle_request)
 app_name = 'core'
 
 urlpatterns = [
@@ -17,7 +17,8 @@ urlpatterns = [
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('remove-single-product-from-cart/<slug>/',
          remove_single_product_from_cart, name='remove-single-product-from-cart'),
-    path('payment/<payment_option>/', PaymentView.as_view(), name='payment')
+    path('payment/<payment_option>/', PaymentView.as_view(), name='payment'),
+    path('handle_payment/', handle_request, name='payment_handler')
 
 
 

@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'django_countries',
-    'payu'
+heroku login
 ]
 
 MIDDLEWARE = [
@@ -99,10 +99,4 @@ LOGIN_REDIRECT_URL='/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-#payu
-PAYU_MERCHANT_KEY = "E9ZZB9Lq",
 
-PAYU_MERCHANT_SALT = "0hg3hgzG4V",
-
-# Change the PAYU_MODE to 'LIVE' for production.
-PAYU_MODE = "TEST"

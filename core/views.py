@@ -1,5 +1,5 @@
 from django.contrib import messages
-from payu.gateway import payu_url, get_hash
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, View
@@ -16,9 +16,7 @@ import requests
 from django.shortcuts import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
-# Payu Url
-payu_r= payu_url()
-payu_url = ''
+
 MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 
 

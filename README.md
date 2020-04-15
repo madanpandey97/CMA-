@@ -1,5 +1,5 @@
 # CMA
-A Sample Ecommerce Website
+A Sample Ecommerce Website for managing your E-store.
 
 #### Feature
 

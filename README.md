@@ -1,14 +1,14 @@
-# CMA-
+# CMA
 A Sample Ecommerce Website
 
-##Feature
+#### Feature
 
-*Adding product 
-*Add to card
-*Remove from card
-*Order summary page 
-*login /logout
-*Paytm payment gatway
+* Adding product 
+* Add to card
+* Remove from card
+* Order summary page 
+* login /logout
+* Paytm payment gatway
 
 
 #### Output screen

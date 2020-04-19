@@ -4,8 +4,8 @@ A Sample Ecommerce Website for managing your E-store.
 #### Feature
 
 * Adding product 
-* Add to card
-* Remove from card
+* Add to cart
+* Remove from cart
 * Order summary page 
 * login /logout
 * Paytm payment gatway

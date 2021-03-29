@@ -14,7 +14,7 @@ Naked==0.1.31
 oauthlib==3.1.0
 Pillow==7.0.0
 pycryptodome==3.9.7
-Pygments==2.6.1
+Pygments==2.7.4
 python3-openid==3.1.0
 pytz==2019.3
 PyYAML==5.3.1

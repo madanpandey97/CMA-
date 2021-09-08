@@ -12,7 +12,7 @@ djangorestframework==3.11.0
 idna==2.9
 Naked==0.1.31
 oauthlib==3.1.0
-Pillow==7.0.0
+Pillow==8.3.2
 pycryptodome==3.9.7
 Pygments==2.6.1
 python3-openid==3.1.0
